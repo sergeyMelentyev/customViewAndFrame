@@ -13,6 +13,15 @@ class ViewController: UIViewController {
     @IBOutlet var celsiusLabel: UILabel!
     @IBOutlet var textField: UITextField!
     
+/* Custom data formatter as a closure expression */
+    let numberFormatter: NSNumberFormatter = {
+        let nf = NSNumberFormatter();
+        nf.numberStyle = .DecimalStyle;
+        nf.minimumFractionDigits = 0;
+        nf.maximumFractionDigits = 1;
+        return nf;
+    }()
+    
 /* Set a property observer that will call a func if value changed */
     var fahrenheitValue: Double? {
         didSet {
@@ -29,7 +38,7 @@ class ViewController: UIViewController {
     
     func updateCelsiusLabel() {
         if let value = celsiusValue {
-            celsiusLabel.text = "\(value)"
+            celsiusLabel.text = numberFormatter.stringFromNumber(value);
         } else {
             celsiusLabel.text = "???"
         }
